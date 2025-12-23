@@ -1,4 +1,13 @@
-// MARK: - Event Tags
+//
+//  EventTags.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
+
+import SwiftUI
+
+
 struct EventTags: View {
     let tags: [String]
     

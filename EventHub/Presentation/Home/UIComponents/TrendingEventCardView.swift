@@ -13,7 +13,6 @@ struct TrendingEventCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
-            // Image or placeholder
             if let imageUrl = event.imageUrl, let url = URL(string: imageUrl) {
                 AsyncImage(url: url) { image in
                     image.resizable()

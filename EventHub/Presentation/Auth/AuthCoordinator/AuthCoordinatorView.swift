@@ -10,15 +10,11 @@ import SwiftUI
 struct AuthCoordinatorView: View {
     @EnvironmentObject var appCoordinator: AppCoordinator
     
-    // Create AuthCoordinator for navigation
     @StateObject private var authCoordinator = AuthCoordinator()
     
     var body: some View {
-        // NavigationStack with path from AuthCoordinator
         NavigationStack(path: $authCoordinator.path) {
-            // Root screen = SignIn
             SignInView()
-                // Define destinations for navigation
                 .navigationDestination(for: AuthRoute.self) { route in
                     switch route {
                     case .signIn:
@@ -30,9 +26,8 @@ struct AuthCoordinatorView: View {
                     }
                 }
         }
-        .environmentObject(authCoordinator)  // Make authCoordinator available to all auth views
+        .environmentObject(authCoordinator)
         .onAppear {
-            // Give authCoordinator access to appCoordinator
             authCoordinator.setAppCoordinator(appCoordinator)
         }
     }

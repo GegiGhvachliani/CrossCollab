@@ -1,4 +1,13 @@
-// MARK: - Event Detail Row
+//
+//  EventDetailRow.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
+
+import SwiftUI
+
+
 struct EventDetailRow: View {
     let icon: String
     let text: String

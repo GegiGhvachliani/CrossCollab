@@ -13,7 +13,6 @@ struct EventCardView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             
-            // CHANGED: Date from backend format
             VStack {
                 Text(monthFromDate(event.startDateTime))
                     .font(.caption)
@@ -25,11 +24,9 @@ struct EventCardView: View {
             .frame(width: 50)
             
             VStack(alignment: .leading, spacing: 10) {
-                // CHANGED: Use real event title
                 Text(event.title)
                     .font(.headline)
                 
-                // CHANGED: Time & location from backend
                 HStack(spacing: 8) {
                     Image(systemName: "clock")
                     Text(formatTime(event.startDateTime))
@@ -40,7 +37,6 @@ struct EventCardView: View {
                 .font(.caption)
                 .foregroundColor(.gray)
                 
-                // CHANGED: Optional description
                 if let description = event.description {
                     Text(description)
                         .font(.subheadline)
@@ -48,7 +44,6 @@ struct EventCardView: View {
                         .lineLimit(2)
                 }
                 
-                // CHANGED: Registration info from backend
                 HStack {
                     HStack(spacing: 4) {
                         Image(systemName: "person.3")
@@ -72,13 +67,11 @@ struct EventCardView: View {
         .shadow(color: .black.opacity(0.05), radius: 6, x: 0, y: 4)
     }
     
-    // ADDED: Calculate spots left
     private var spotsLeftText: String {
         let spotsLeft = event.capacity - event.confirmedCount
         return event.isFull ? "Full" : "\(spotsLeft) spots left"
     }
     
-    // ADDED: Parse month from ISO date
     private func monthFromDate(_ dateString: String) -> String {
         let components = dateString.split(separator: "-")
         guard components.count >= 2, let month = Int(components[1]) else { return "JAN" }
@@ -86,7 +79,6 @@ struct EventCardView: View {
         return months[month - 1]
     }
     
-    // ADDED: Parse day from ISO date
     private func dayFromDate(_ dateString: String) -> String {
         let components = dateString.split(separator: "-")
         guard components.count >= 3 else { return "01" }
@@ -94,7 +86,6 @@ struct EventCardView: View {
         return String(dayComponent[0])
     }
     
-    // ADDED: Format time
     private func formatTime(_ dateString: String) -> String {
         let components = dateString.split(separator: "T")
         guard components.count >= 2 else { return "TBA" }

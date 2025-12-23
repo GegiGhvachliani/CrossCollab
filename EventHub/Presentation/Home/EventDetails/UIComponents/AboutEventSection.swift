@@ -1,4 +1,13 @@
-// MARK: - About Event Section
+//
+//  AboutEventSection.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
+
+import SwiftUI
+
+
 struct AboutEventSection: View {
     let description: String
     

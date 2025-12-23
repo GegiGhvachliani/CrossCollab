@@ -1,4 +1,13 @@
-// MARK: - Register Section
+//
+//  RegisterSection.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
+
+import SwiftUI
+
+
 struct RegisterSection: View {
     let event: Event
     let onRegister: () -> Void
