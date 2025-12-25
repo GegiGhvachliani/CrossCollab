@@ -19,7 +19,7 @@ struct EventInfoSection: View {
             EventDetailRow(icon: "calendar", text: formatDate(event.startDateTime))
             EventDetailRow(icon: "clock", text: formatTime(event.startDateTime))
             EventDetailRow(icon: "mappin.and.ellipse", text: event.location)
-            EventDetailRow(icon: "person.2", text: "\(event.confirmedCount) registered • \(spotsLeftText)")
+            EventDetailRow(icon: "person.3", text: "\(event.confirmedCount) registered • \(spotsLeftText)")
         }
         .padding(.horizontal)
     }

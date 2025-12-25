@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 @MainActor
-class AppCoordinator: ObservableObject {
+final class AppCoordinator: ObservableObject {
     @Published var isAuthenticated = false
     
     private let keychainManager: KeychainManager

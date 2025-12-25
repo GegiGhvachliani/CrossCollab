@@ -1,5 +1,13 @@
+//
+//  CalendarModeView.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 24.12.25.
+//
 
-// MARK: - Calendar Mode
+import SwiftUI
+
+
 struct CalendarModeView: View {
     @ObservedObject var viewModel: MyEventsViewModel
     
@@ -14,7 +22,7 @@ struct CalendarModeView: View {
                             .font(.headline)
                             .padding(.horizontal)
                         
-                        NextEventCard(event: upcomingEvent)
+                        NextEventCard(registration: upcomingEvent)  // CHANGED
                     }
                     
                     Divider()
@@ -40,11 +48,11 @@ struct CalendarModeView: View {
                             .padding(.horizontal)
                             .padding(.top, 8)
                     } else {
-                        ForEach(viewModel.eventsForSelectedDate) { event in
+                        ForEach(viewModel.eventsForSelectedDate) { registration in  // CHANGED
                             NavigationLink {
-                                EventDetailsView(eventId: event.id)
+                                EventDetailsView(eventId: registration.eventId)
                             } label: {
-                                EventDetailCard(event: event)
+                                EventDetailCard(registration: registration)  // CHANGED
                             }
                             .buttonStyle(.plain)
                         }

@@ -1,11 +1,19 @@
-// MARK: - Browse Event Card
+//
+//  BrowseEventCard.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
+
+import SwiftUI
+
+
 struct BrowseEventCard: View {
     let event: Event
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             
-            // Date
             VStack(spacing: 4) {
                 Text(monthFromDate(event.startDateTime))
                     .font(.system(size: 12))
@@ -17,7 +25,6 @@ struct BrowseEventCard: View {
             
             VStack(alignment: .leading, spacing: 8) {
                 
-                // Category & Status
                 HStack {
                     Text(event.eventTypeName)
                         .font(.caption)
@@ -51,7 +58,7 @@ struct BrowseEventCard: View {
                 .foregroundColor(.secondary)
                 
                 HStack(spacing: 4) {
-                    Image(systemName: "location")
+                    Image(systemName: "mappin.and.ellipse")
                     Text(event.location)
                 }
                 .font(.system(size: 12))

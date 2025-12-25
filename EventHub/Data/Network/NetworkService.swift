@@ -11,7 +11,7 @@ class NetworkService: NetworkServiceProtocol {
     
     private let keychainManager: KeychainManager
     
-    private let useMockData = true //TODO: - shesacvlelia roca back mekneba
+    private let useMockData = false
     
     init(keychainManager: KeychainManager) {
         self.keychainManager = keychainManager
@@ -52,13 +52,10 @@ class NetworkService: NetworkServiceProtocol {
         switch httpResponse.statusCode {
         case 200...299:
             break
-            
         case 401:
             throw NetworkError.unauthorized
-            
         case 400...599:
             throw NetworkError.serverError(httpResponse.statusCode)
-            
         default:
             throw NetworkError.unknown
         }
@@ -86,6 +83,11 @@ class NetworkService: NetworkServiceProtocol {
         endpoint: APIEndpoint
     ) async throws {
         
+        if useMockData {
+            try await mockRequestWithoutResponse(for: endpoint)
+            return
+        }
+        
         guard let url = endpoint.buildURL() else {
             throw NetworkError.invalidURL
         }
@@ -111,155 +113,194 @@ class NetworkService: NetworkServiceProtocol {
         switch httpResponse.statusCode {
         case 200...299:
             return
-            
         case 401:
             throw NetworkError.unauthorized
-            
         case 400...599:
             throw NetworkError.serverError(httpResponse.statusCode)
-            
         default:
             throw NetworkError.unknown
         }
     }
-    
-    
-    
-    // MARK: - MOCK data for testing
+}
+
+// MARK: - Mock Data
+extension NetworkService {
     
     private func mockResponse<T: Codable>(
         for endpoint: APIEndpoint,
         responseType: T.Type
     ) async throws -> T {
         
-        try await Task.sleep(nanoseconds: 1_000_000_000)  // 1 second
+        try await Task.sleep(nanoseconds: 500_000_000)
         
         switch endpoint {
-            // MARK: Login Mock
-        case .login(let email, let password):
-            print("🟢 MOCK: Login called with email: \(email)")
             
-            // Check credentials
-            if email == "test@test.com" && password == "password" {
-                let mockResponse = AuthResponse(
-                    token: "mock_jwt_token_12345",
-                    userId: 1,
-                    fullName: "Test User",
-                    role: "Employee",
-                    expiresAt: "2025-12-31T23:59:59Z"
-                )
-                return mockResponse as! T
-            } else {
-                throw NetworkError.serverError(401)
-            }
-            
-            // MARK: Register Mock
-        case .register(let email, let password, let fullName):
-            print("🟢 MOCK: Register called")
-            
-            let mockResponse = AuthResponse(
-                token: "mock_jwt_token_new_user",
-                userId: 2,
-                fullName: fullName,
+        case .login:
+            let response = AuthResponse(
+                token: "mock_token_12345",
+                userId: 1,
+                fullName: "Gegi Ghvachliani",
                 role: "Employee",
                 expiresAt: "2025-12-31T23:59:59Z"
             )
-            return mockResponse as! T
+            return response as! T
             
-            // MARK: Forgot Password Mock
-        case .forgotPassword(let email):
-            print("🟢 MOCK: Forgot password called for: \(email)")
-            
-            let mockResponse = ["message": "Password reset link sent"]
-            return mockResponse as! T
-            
-            // MARK: Get Events Mock
         case .getEvents:
-            print("🟢 MOCK: Get events called")
+            let events = MockData.events
+            return events as! T
             
-            let mockEvents = [
-                Event(
-                    id: 101,
-                    title: "Team Building Retreat",
-                    description: "Two-day offsite for cross-team bonding",
-                    eventTypeName: "Team Building",
-                    startDateTime: "2025-02-05T09:00:00Z",
-                    endDateTime: "2025-02-06T18:00:00Z",
-                    location: "Gudauri",
-                    capacity: 30,
-                    confirmedCount: 27,
-                    waitlistedCount: 0,
-                    isFull: false,
-                    imageUrl: "https://picsum.photos/400/300",
-                    tags: ["outdoor", "team-building"],
-                    createdBy: "HR Team"
-                ),
-                Event(
-                    id: 102,
-                    title: "iOS Workshop",
-                    description: "Learn Swift and SwiftUI",
-                    eventTypeName: "Workshop",
-                    startDateTime: "2025-02-10T14:00:00Z",
-                    endDateTime: "2025-02-10T18:00:00Z",
-                    location: "Tech Hub Tbilisi",
-                    capacity: 20,
-                    confirmedCount: 20,
-                    waitlistedCount: 5,
-                    isFull: true,
-                    imageUrl: "https://picsum.photos/400/301",
-                    tags: ["tech", "education"],
-                    createdBy: "Tech Team"
-                )
-            ]
-            return mockEvents as! T
-            // MARK: - Get Event Detail Mock
         case .getEventDetail(let id):
-            print("🟢 MOCK: Get event detail for id: \(id)")
-            
-            let mockEvents = [
-                Event(
-                    id: 101,
-                    title: "Team Building Retreat",
-                    description: "Two-day offsite for cross-team bonding. Join us for engaging activities, team challenges, and networking opportunities in the beautiful mountains of Gudauri.",
-                    eventTypeName: "Team Building",
-                    startDateTime: "2025-02-05T09:00:00Z",
-                    endDateTime: "2025-02-06T18:00:00Z",
-                    location: "Gudauri Mountain Resort",
-                    capacity: 30,
-                    confirmedCount: 27,
-                    waitlistedCount: 0,
-                    isFull: false,
-                    imageUrl: "https://picsum.photos/400/300",
-                    tags: ["outdoor", "team-building", "networking"],
-                    createdBy: "HR Team"
-                ),
-                Event(
-                    id: 102,
-                    title: "iOS Workshop",
-                    description: "Learn Swift and SwiftUI basics. Perfect for beginners who want to start iOS development. Covers fundamentals and hands-on projects.",
-                    eventTypeName: "Workshop",
-                    startDateTime: "2025-02-10T14:00:00Z",
-                    endDateTime: "2025-02-10T18:00:00Z",
-                    location: "Tech Hub Tbilisi",
-                    capacity: 20,
-                    confirmedCount: 20,
-                    waitlistedCount: 5,
-                    isFull: true,
-                    imageUrl: "https://picsum.photos/400/301",
-                    tags: ["tech", "education", "ios"],
-                    createdBy: "Tech Team"
-                )
-            ]
-            
-            if let event = mockEvents.first(where: { $0.id == id }) {
+            if let event = MockData.events.first(where: { $0.id == id }) {
                 return event as! T
-            } else {
-                throw NetworkError.serverError(404)
             }
-            // MARK: Other endpoints - return empty/default
+            throw NetworkError.noData
+            
+        case .registerForEvent(let eventId):
+            let registration = Registration(
+                registrationId: Int.random(in: 1000...9999),
+                eventId: eventId,
+                eventTitle: "Mock Event Title",
+                eventType: "Workshop",
+                startDateTime: "2025-12-28T10:00:00Z",
+                location: "TBC Academy",
+                status: eventId == 102 ? "Waitlisted" : "Confirmed",
+                registeredAt: ISO8601DateFormatter().string(from: Date()),
+                eventIsActive: true,
+                eventMessage: nil
+            )
+            return registration as! T
+            
+        case .getMyRegistrations:
+            let registrations = MockData.myRegistrations
+            return registrations as! T
+            
+        case .getNotifications:
+            let notifications = MockData.notifications
+            return notifications as! T
+            
         default:
-            print("🟡 MOCK: Endpoint not implemented yet: \(endpoint)")
-            throw NetworkError.serverError(404)
+            throw NetworkError.unknown
+        }
+    }
+    
+    private func mockRequestWithoutResponse(for endpoint: APIEndpoint) async throws {
+        try await Task.sleep(nanoseconds: 500_000_000)
+        
+        switch endpoint {
+        case .cancelRegistration:
+            print("✅ Mock: Registration cancelled")
+            return
+        default:
+            return
         }
     }
 }
+
+//// MARK: - Mock Data Storage
+//struct MockData {
+//    
+//    static let events: [Event] = [
+//        Event(
+//            id: 101,
+//            title: "iOS Development Workshop",
+//            description: "Learn advanced iOS development techniques",
+//            eventTypeName: "Workshop",
+//            startDateTime: "2025-12-28T10:00:00Z",
+//            endDateTime: "2025-12-28T18:00:00Z",
+//            location: "TBC Academy, Tbilisi",
+//            capacity: 30,
+//            confirmedCount: 25,
+//            waitlistedCount: 0,
+//            isFull: false,
+//            imageUrl: nil,
+//            tags: ["iOS", "Swift", "Mobile"],
+//            createdBy: nil,
+//            agenda: nil,
+//            speakers: nil
+//        ),
+//        Event(
+//            id: 102,
+//            title: "Team Building Event",
+//            description: "Annual team building activities",
+//            eventTypeName: "Team Building",
+//            startDateTime: "2025-12-30T14:00:00Z",
+//            endDateTime: "2025-12-30T19:00:00Z",
+//            location: "Mtatsminda Park, Tbilisi",
+//            capacity: 20,
+//            confirmedCount: 20,
+//            waitlistedCount: 5,
+//            isFull: true,
+//            imageUrl: nil,
+//            tags: ["Team", "Fun"],
+//            createdBy: nil,
+//            agenda: nil,
+//            speakers: nil
+//        ),
+//        Event(
+//            id: 103,
+//            title: "Leadership Training",
+//            description: "Develop your leadership skills",
+//            eventTypeName: "Training",
+//            startDateTime: "2026-01-05T09:00:00Z",
+//            endDateTime: "2026-01-05T17:00:00Z",
+//            location: "Radisson Blu Hotel, Tbilisi",
+//            capacity: 50,
+//            confirmedCount: 35,
+//            waitlistedCount: 0,
+//            isFull: false,
+//            imageUrl: nil,
+//            tags: ["Leadership", "Management"],
+//            createdBy: nil,
+//            agenda: nil,
+//            speakers: nil
+//        )
+//    ]
+//    
+//    static let myRegistrations: [Registration] = [
+//        Registration(
+//            registrationId: 501,
+//            eventId: 101,
+//            eventTitle: "iOS Development Workshop",
+//            eventType: "Workshop",
+//            startDateTime: "2025-12-28T10:00:00Z",
+//            location: "TBC Academy, Tbilisi",
+//            status: "Confirmed",
+//            registeredAt: "2025-12-20T14:30:00Z",
+//            eventIsActive: true,
+//            eventMessage: nil
+//        ),
+//        Registration(
+//            registrationId: 502,
+//            eventId: 102,
+//            eventTitle: "Team Building Event",
+//            eventType: "Team Building",
+//            startDateTime: "2025-12-30T14:00:00Z",
+//            location: "Mtatsminda Park, Tbilisi",
+//            status: "Waitlisted",
+//            registeredAt: "2025-12-21T09:15:00Z",
+//            eventIsActive: true,
+//            eventMessage: "You are currently on the waitlist"
+//        )
+//    ]
+//    
+//    static let notifications: [Notification] = [
+//        Notification(
+//            id: 1,
+//            type: "Event",
+//            title: "Event Reminder",
+//            message: "iOS Workshop starts tomorrow at 10 AM",
+//            eventId: 101,           // MOVED BEFORE createdAt!
+//            createdAt: "2025-12-27T09:00:00Z",
+//            isRead: false
+//        ),
+//        Notification(
+//            id: 2,
+//            type: "Registration",
+//            title: "Registration Confirmed",
+//            message: "You're registered for Leadership Training",
+//            eventId: 103,           // MOVED BEFORE createdAt!
+//            createdAt: "2025-12-20T14:30:00Z",
+//            isRead: true
+//        )
+//    ]
+//}

@@ -17,22 +17,22 @@ struct MainTabView: View {
                     Label("Home", systemImage: "house.fill")
                 }
             
-            BrowseView()
+            BrowseView(viewModel: DIContainer.shared.makeBrowseViewModel())
                 .tabItem {
                     Label("Browse", systemImage: "magnifyingglass")
                 }
             
-            MyEventsView()
+            MyEventsView(viewModel: DIContainer.shared.makeMyEventsViewModel())
                 .tabItem {
                     Label("My Events", systemImage: "calendar")
                 }
             
-            UpdatesView()
+            NotificationsView(viewModel: DIContainer.shared.makeNotificationsViewModel())
                 .tabItem {
-                    Label("Updates", systemImage: "bell.fill")
+                    Label("Notifications", systemImage: "bell.fill")
                 }
             
-            ProfileView()
+            ProfileView(viewModel: DIContainer.shared.makeProfileViewModel())
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }

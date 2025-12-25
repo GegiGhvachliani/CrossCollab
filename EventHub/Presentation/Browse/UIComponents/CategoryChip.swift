@@ -1,4 +1,13 @@
-// MARK: - Category Chip
+//
+//  CategoryChip.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
+
+import SwiftUI
+
+
 struct CategoryChip: View {
     let title: String
     let isSelected: Bool

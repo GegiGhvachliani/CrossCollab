@@ -2,6 +2,14 @@
 //  AgendaSection.swift
 //  EventHub
 //
+//  Created by Gegi Ghvachliani on 25.12.25.
+//
+
+
+//
+//  AgendaSection.swift
+//  EventHub
+//
 //  Created by Gegi Ghvachliani on 23.12.25.
 //
 

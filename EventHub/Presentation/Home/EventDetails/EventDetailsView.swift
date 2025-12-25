@@ -1,10 +1,9 @@
 //
-//  DetailsView.swift
+//  EventDetailsView.swift
 //  EventHub
 //
 //  Created by Gegi Ghvachliani on 23.12.25.
 //
-
 
 import SwiftUI
 
@@ -30,15 +29,25 @@ struct EventDetailsView: View {
                 
             } else if let event = viewModel.event {
                 VStack(alignment: .leading, spacing: 20) {
-                    EventBanner(imageURL: event.imageUrl)
+                    EventBanner(imageURL: event.imageUrl, eventId: event.id)  // CHANGED: Add eventId
                     EventTags(tags: event.tags ?? [])
                     EventInfoSection(event: event)
                     Divider()
-                    RegisterSection(event: event) {
-                        viewModel.registerForEvent()
-                    }
+                    RegisterSection(event: event, viewModel: viewModel)
                     Divider()
                     AboutEventSection(description: event.description ?? "")
+                    
+                    if let agenda = viewModel.agenda, !agenda.isEmpty {
+                          Divider()
+                          AgendaSection(items: agenda)
+                      }
+                      
+                      // NEW: Add speakers if available
+                      if let speakers = viewModel.speakers, !speakers.isEmpty {
+                          Divider()
+                          SpeakersSection(speakers: speakers)
+                      }
+                    
                     Divider()
                     FAQPlaceholder()
                 }
@@ -51,11 +60,3 @@ struct EventDetailsView: View {
         }
     }
 }
-
-
-
-
-
-
-
-

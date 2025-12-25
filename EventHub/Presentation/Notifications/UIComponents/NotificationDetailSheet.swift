@@ -1,4 +1,13 @@
-// MARK: - Notification Detail Sheet
+//
+//  NotificationDetailSheet.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 24.12.25.
+//
+
+import SwiftUI
+
+
 struct NotificationDetailSheet: View {
     let notification: Notification
     @Environment(\.dismiss) var dismiss

@@ -19,8 +19,5 @@ protocol EventRepositoryProtocol {
         onlyAvailable: Bool?
     ) async throws -> [Event]
     
-    /// Get single event details
-    /// - Parameter id: Event ID
-    /// - Returns: Event details
     func getEventDetail(id: Int) async throws -> Event
 }

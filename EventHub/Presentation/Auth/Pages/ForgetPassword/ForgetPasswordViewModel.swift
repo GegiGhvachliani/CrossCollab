@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 @MainActor
-class ForgotPasswordViewModel: ObservableObject {
+final class ForgotPasswordViewModel: ObservableObject {
     
     // MARK: - Published Properties
     

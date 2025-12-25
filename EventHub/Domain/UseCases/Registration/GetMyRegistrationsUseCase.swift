@@ -2,7 +2,7 @@
 //  GetMyRegistrationsUseCase.swift
 //  EventHub
 //
-//  Created by Gegi Ghvachliani on 23.12.25.
+//  Created by Gegi Ghvachliani on 25.12.25.
 //
 
 import Foundation

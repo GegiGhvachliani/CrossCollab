@@ -16,7 +16,6 @@ enum NetworkError: Error {
     case unknown
 }
 
-// MARK: - User-Friendly Messages
 extension NetworkError {
     var message: String {
         switch self {

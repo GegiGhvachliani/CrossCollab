@@ -8,21 +8,58 @@
 import SwiftUI
 
 struct BrowseView: View {
+    @StateObject var viewModel: BrowseViewModel
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("Browse Screen")
-                    .font(.largeTitle)
-                    .bold()
+            VStack(spacing: 0) {
                 
-                Text("Search and filter events here")
-                    .foregroundColor(.gray)
+                // FIXED: Non-scrollable header section
+                VStack(spacing: 0) {
+                    BrowseHeader()
+                    
+                    SearchAndFilterBar(
+                        searchText: $viewModel.searchText,
+                        onFilterTap: { viewModel.showFilters = true }
+                    )
+                    
+                    CategoryBar(
+                        categories: viewModel.categories,
+                        selectedCategory: $viewModel.selectedCategory
+                    )
+                    
+                    Divider()
+                }
+                
+                // FIXED: Only this part scrolls/changes
+                ZStack {
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else if let error = viewModel.errorMessage {
+                        ErrorView(message: error) {
+                            viewModel.loadEvents()
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else if viewModel.filteredEvents.isEmpty {
+                        EmptySearchView()
+                    } else {
+                        BrowseEventsList(events: viewModel.filteredEvents)
+                    }
+                }
             }
-            .navigationTitle("Browse Events")
+            .sheet(isPresented: $viewModel.showFilters) {
+                FiltersSheet(viewModel: viewModel)
+            }
+            .onAppear {
+                viewModel.loadEvents()
+            }
+            .refreshable {
+                await viewModel.refreshEvents()
+            }
         }
     }
 }
 
 #Preview {
-    BrowseView()
+    BrowseView(viewModel: DIContainer.shared.makeBrowseViewModel())
 }

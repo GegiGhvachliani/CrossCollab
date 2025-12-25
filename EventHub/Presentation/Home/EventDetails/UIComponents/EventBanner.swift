@@ -7,29 +7,31 @@
 
 import SwiftUI
 
-
 struct EventBanner: View {
     let imageURL: String?
+    let eventId: Int  // NEW: Add eventId
     
     var body: some View {
-        ZStack {
-            if let imageURL, let url = URL(string: imageURL) {
-                AsyncImage(url: url) { image in
-                    image.resizable()
-                        .scaledToFill()
-                } placeholder: {
-                    placeholderImage
-                }
-            } else {
-                placeholderImage
-            }
+        AsyncImage(url: URL(string: finalImageUrl)) { image in
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+        } placeholder: {
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        colors: [Color.blue.opacity(0.6), Color.purple.opacity(0.6)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
         }
-        .frame(height: 192)
+        .frame(height: 200)
         .clipped()
     }
     
-    private var placeholderImage: some View {
-        Rectangle()
-            .fill(Color.gray.opacity(0.3))
+    // Use backend image if available, otherwise generate
+    private var finalImageUrl: String {
+        imageURL ?? "https://picsum.photos/seed/event-\(eventId)/800/400"
     }
 }

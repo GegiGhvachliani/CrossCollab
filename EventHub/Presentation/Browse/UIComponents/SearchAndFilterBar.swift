@@ -1,4 +1,13 @@
-// MARK: - Search & Filter Bar
+//
+//  SearchAndFilterBar.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
+
+import SwiftUI
+
+
 struct SearchAndFilterBar: View {
     @Binding var searchText: String
     let onFilterTap: () -> Void

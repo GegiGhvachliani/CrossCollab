@@ -1,33 +1,50 @@
-// MARK: - Event Detail Card
+//
+//  EventDetailCard.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 24.12.25.
+//
+
+import SwiftUI
+
+
 struct EventDetailCard: View {
-    let event: Event
+    let registration: Registration  // CHANGED
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             VStack {
-                Text(formatHour(event.startDateTime))
+                Text(formatHour(registration.startDateTime))
                     .font(.title3)
                     .fontWeight(.semibold)
-                Text(formatAMPM(event.startDateTime))
+                Text(formatAMPM(registration.startDateTime))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
             .frame(width: 60)
             
             VStack(alignment: .leading, spacing: 8) {
-                Text(event.title)
+                Text(registration.eventTitle)
                     .font(.headline)
                 
-                Text(event.eventTypeName)
+                Text(registration.eventType)
                     .font(.subheadline)
                     .foregroundColor(.blue)
                 
                 HStack(spacing: 6) {
                     Image(systemName: "mappin.and.ellipse")
-                    Text(event.location)
+                    Text(registration.location)
                 }
                 .font(.caption)
                 .foregroundColor(.gray)
+                
+                // Status
+                HStack {
+                    Image(systemName: registration.isConfirmed ? "checkmark.circle.fill" : "clock.fill")
+                    Text(registration.status)
+                }
+                .font(.caption2)
+                .foregroundColor(registration.isConfirmed ? .green : .orange)
             }
             
             Spacer()

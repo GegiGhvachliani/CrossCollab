@@ -13,6 +13,7 @@ struct EventCardView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             
+            // Date display (like Figma design)
             VStack {
                 Text(monthFromDate(event.startDateTime))
                     .font(.caption)

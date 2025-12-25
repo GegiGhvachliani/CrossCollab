@@ -2,7 +2,7 @@
 //  MockData.swift
 //  EventHub
 //
-//  Created by Gegi Ghvachliani on 21.12.25.
+//  Created by Gegi Ghvachliani on 25.12.25.
 //
 
 import Foundation
@@ -14,7 +14,7 @@ struct MockData {
         Event(
             id: 101,
             title: "iOS Development Workshop",
-            description: "Learn advanced iOS development techniques with SwiftUI and Combine framework. Perfect for intermediate developers looking to level up their skills.",
+            description: "Learn advanced iOS development techniques with SwiftUI and Combine framework. Perfect for intermediate developers.",
             eventTypeName: "Workshop",
             startDateTime: "2025-12-28T10:00:00Z",
             endDateTime: "2025-12-28T16:00:00Z",
@@ -23,16 +23,14 @@ struct MockData {
             confirmedCount: 22,
             waitlistedCount: 5,
             imageUrl: "https://picsum.photos/seed/ios-workshop/800/400",
-            organizerName: "Tech Learning Team",
+            organizerName: "Tech Team",
             tags: ["iOS", "SwiftUI", "Development"],
-            isActive: true,
-            agenda: mockAgenda,
-            speakers: mockSpeakers
+            isActive: true
         ),
         Event(
             id: 102,
             title: "Team Building Adventure",
-            description: "Outdoor team building activities including hiking, problem-solving challenges, and team bonding exercises.",
+            description: "Outdoor team building activities including hiking and team challenges.",
             eventTypeName: "Team Building",
             startDateTime: "2025-12-30T09:00:00Z",
             endDateTime: "2025-12-30T18:00:00Z",
@@ -43,14 +41,12 @@ struct MockData {
             imageUrl: "https://picsum.photos/seed/team-building/800/400",
             organizerName: "HR Department",
             tags: ["Team", "Outdoor", "Fun"],
-            isActive: true,
-            agenda: mockTeamBuildingAgenda,
-            speakers: nil
+            isActive: true
         ),
         Event(
             id: 103,
             title: "Annual Company Conference",
-            description: "Join us for our annual conference featuring keynote speakers, product launches, and networking opportunities.",
+            description: "Join us for keynote speakers, product launches, and networking.",
             eventTypeName: "Conference",
             startDateTime: "2026-01-15T09:00:00Z",
             endDateTime: "2026-01-15T17:00:00Z",
@@ -60,15 +56,13 @@ struct MockData {
             waitlistedCount: 12,
             imageUrl: "https://picsum.photos/seed/conference/800/400",
             organizerName: "Executive Team",
-            tags: ["Conference", "Networking", "Business"],
-            isActive: true,
-            agenda: mockConferenceAgenda,
-            speakers: mockConferenceSpeakers
+            tags: ["Conference", "Networking"],
+            isActive: true
         ),
         Event(
             id: 104,
             title: "Machine Learning Training",
-            description: "Comprehensive training on machine learning fundamentals, algorithms, and practical applications.",
+            description: "Comprehensive training on ML fundamentals and practical applications.",
             eventTypeName: "Training",
             startDateTime: "2026-01-10T10:00:00Z",
             endDateTime: "2026-01-10T15:00:00Z",
@@ -79,14 +73,12 @@ struct MockData {
             imageUrl: "https://picsum.photos/seed/ml-training/800/400",
             organizerName: "Data Science Team",
             tags: ["ML", "AI", "Training"],
-            isActive: true,
-            agenda: mockTrainingAgenda,
-            speakers: mockMLSpeakers
+            isActive: true
         ),
         Event(
             id: 105,
             title: "New Year Celebration",
-            description: "Celebrate the new year with colleagues! Dinner, music, and entertainment.",
+            description: "Celebrate the new year with colleagues! Dinner, music, entertainment.",
             eventTypeName: "Social",
             startDateTime: "2025-12-31T19:00:00Z",
             endDateTime: "2026-01-01T01:00:00Z",
@@ -96,228 +88,8 @@ struct MockData {
             waitlistedCount: 0,
             imageUrl: "https://picsum.photos/seed/new-year/800/400",
             organizerName: "Social Committee",
-            tags: ["Party", "Celebration", "Social"],
-            isActive: true,
-            agenda: nil,
-            speakers: nil
-        )
-    ]
-    
-    // MARK: - Mock Agenda Items
-    static let mockAgenda: [AgendaItem] = [
-        AgendaItem(
-            id: "1",
-            time: "10:00 AM",
-            title: "Welcome & Introduction",
-            description: "Overview of the workshop and introduction to SwiftUI fundamentals",
-            duration: "30 min"
-        ),
-        AgendaItem(
-            id: "2",
-            time: "10:30 AM",
-            title: "SwiftUI Deep Dive",
-            description: "Advanced SwiftUI patterns, state management, and custom views",
-            duration: "90 min"
-        ),
-        AgendaItem(
-            id: "3",
-            time: "12:00 PM",
-            title: "Lunch Break",
-            description: "Networking lunch with fellow developers",
-            duration: "60 min"
-        ),
-        AgendaItem(
-            id: "4",
-            time: "1:00 PM",
-            title: "Combine Framework",
-            description: "Reactive programming with Combine and practical examples",
-            duration: "90 min"
-        ),
-        AgendaItem(
-            id: "5",
-            time: "2:30 PM",
-            title: "Hands-on Project",
-            description: "Build a complete SwiftUI app with Combine integration",
-            duration: "90 min"
-        ),
-        AgendaItem(
-            id: "6",
-            time: "4:00 PM",
-            title: "Q&A and Wrap-up",
-            description: "Questions, discussion, and closing remarks",
-            duration: "30 min"
-        )
-    ]
-    
-    static let mockTeamBuildingAgenda: [AgendaItem] = [
-        AgendaItem(
-            id: "1",
-            time: "9:00 AM",
-            title: "Morning Gathering",
-            description: "Check-in and team assignments",
-            duration: "30 min"
-        ),
-        AgendaItem(
-            id: "2",
-            time: "9:30 AM",
-            title: "Hiking Adventure",
-            description: "Guided hike through scenic trails",
-            duration: "2 hours"
-        ),
-        AgendaItem(
-            id: "3",
-            time: "11:30 AM",
-            title: "Team Challenges",
-            description: "Problem-solving activities and team games",
-            duration: "2 hours"
-        ),
-        AgendaItem(
-            id: "4",
-            time: "1:30 PM",
-            title: "Lunch",
-            description: "Picnic lunch at the summit",
-            duration: "90 min"
-        ),
-        AgendaItem(
-            id: "5",
-            time: "3:00 PM",
-            title: "Reflection Session",
-            description: "Team discussion and bonding activities",
-            duration: "60 min"
-        )
-    ]
-    
-    static let mockConferenceAgenda: [AgendaItem] = [
-        AgendaItem(
-            id: "1",
-            time: "9:00 AM",
-            title: "Registration & Coffee",
-            description: "Check-in and morning refreshments",
-            duration: "60 min"
-        ),
-        AgendaItem(
-            id: "2",
-            time: "10:00 AM",
-            title: "Opening Keynote",
-            description: "Company vision and strategic direction for 2026",
-            duration: "60 min"
-        ),
-        AgendaItem(
-            id: "3",
-            time: "11:00 AM",
-            title: "Product Showcase",
-            description: "Launch of new products and features",
-            duration: "90 min"
-        ),
-        AgendaItem(
-            id: "4",
-            time: "12:30 PM",
-            title: "Networking Lunch",
-            description: "Buffet lunch and networking opportunities",
-            duration: "90 min"
-        ),
-        AgendaItem(
-            id: "5",
-            time: "2:00 PM",
-            title: "Breakout Sessions",
-            description: "Choose from 3 specialized tracks",
-            duration: "90 min"
-        ),
-        AgendaItem(
-            id: "6",
-            time: "3:30 PM",
-            title: "Panel Discussion",
-            description: "Industry leaders discuss future trends",
-            duration: "60 min"
-        ),
-        AgendaItem(
-            id: "7",
-            time: "4:30 PM",
-            title: "Closing Remarks",
-            description: "Summary and next steps",
-            duration: "30 min"
-        )
-    ]
-    
-    static let mockTrainingAgenda: [AgendaItem] = [
-        AgendaItem(
-            id: "1",
-            time: "10:00 AM",
-            title: "ML Fundamentals",
-            description: "Introduction to machine learning concepts",
-            duration: "90 min"
-        ),
-        AgendaItem(
-            id: "2",
-            time: "11:30 AM",
-            title: "Algorithms Overview",
-            description: "Common ML algorithms and use cases",
-            duration: "90 min"
-        ),
-        AgendaItem(
-            id: "3",
-            time: "1:00 PM",
-            title: "Hands-on Lab",
-            description: "Build and train your first ML model",
-            duration: "2 hours"
-        )
-    ]
-    
-    // MARK: - Mock Speakers
-    static let mockSpeakers: [Speaker] = [
-        Speaker(
-            id: "1",
-            name: "Alex Thompson",
-            title: "Senior iOS Engineer",
-            bio: "10+ years of iOS development experience. Contributed to major apps used by millions worldwide.",
-            imageUrl: "https://i.pravatar.cc/300?img=33",
-            company: "TBC"
-        ),
-        Speaker(
-            id: "2",
-            name: "Sarah Martinez",
-            title: "SwiftUI Expert",
-            bio: "Author of 'Mastering SwiftUI' and speaker at Apple WWDC. Passionate about clean code and architecture.",
-            imageUrl: "https://i.pravatar.cc/300?img=47",
-            company: "Apple"
-        )
-    ]
-    
-    static let mockConferenceSpeakers: [Speaker] = [
-        Speaker(
-            id: "3",
-            name: "David Chen",
-            title: "CEO",
-            bio: "Visionary leader with 15 years in fintech. Leading TBC's digital transformation.",
-            imageUrl: "https://i.pravatar.cc/300?img=12",
-            company: "TBC"
-        ),
-        Speaker(
-            id: "4",
-            name: "Emma Wilson",
-            title: "Chief Product Officer",
-            bio: "Product strategy expert. Previously led product teams at major tech companies.",
-            imageUrl: "https://i.pravatar.cc/300?img=20",
-            company: "TBC"
-        ),
-        Speaker(
-            id: "5",
-            name: "Michael Brown",
-            title: "CTO",
-            bio: "Technology innovator driving engineering excellence and technical strategy.",
-            imageUrl: "https://i.pravatar.cc/300?img=52",
-            company: "TBC"
-        )
-    ]
-    
-    static let mockMLSpeakers: [Speaker] = [
-        Speaker(
-            id: "6",
-            name: "Dr. Lisa Anderson",
-            title: "Head of Data Science",
-            bio: "PhD in Machine Learning. Published researcher with 50+ papers in top AI conferences.",
-            imageUrl: "https://i.pravatar.cc/300?img=38",
-            company: "TBC AI Labs"
+            tags: ["Party", "Celebration"],
+            isActive: true
         )
     ]
     
@@ -362,72 +134,223 @@ struct MockData {
     ]
     
     // MARK: - Mock Notifications
+    // MARK: - Mock Notifications
     static let notifications: [Notification] = [
+        // Registration confirmations
         Notification(
             id: 1,
-            type: "registration_confirmed",
+            type: "Registration",
             title: "Registration Confirmed",
-            message: "You're registered for iOS Development Workshop on Dec 28, 2025",
-            eventId: 101,
-            eventTitle: "iOS Development Workshop",
-            createdAt: "2025-12-20T14:30:00Z",
-            isRead: false,
-            imageUrl: "https://picsum.photos/seed/notif-1/100/100"
+            message: "You're registered for Python for Beginners on Jan 2, 2026",
+            eventId: 5,
+            createdAt: "2025-12-24T10:30:00Z",
+            isRead: false
         ),
         Notification(
             id: 2,
-            type: "event_reminder",
-            title: "Event Reminder",
-            message: "iOS Development Workshop starts in 3 days! Don't forget to bring your laptop.",
-            eventId: 101,
-            eventTitle: "iOS Development Workshop",
-            createdAt: "2025-12-25T09:00:00Z",
-            isRead: false,
-            imageUrl: "https://picsum.photos/seed/notif-2/100/100"
+            type: "Registration",
+            title: "Registration Confirmed",
+            message: "You're registered for Security Awareness on Jan 4, 2026",
+            eventId: 6,
+            createdAt: "2025-12-23T14:20:00Z",
+            isRead: false
         ),
+        
+        // Event reminders
         Notification(
             id: 3,
-            type: "waitlist_update",
-            title: "Waitlist Update",
-            message: "You've moved up to position #3 on the waitlist for Team Building Adventure",
-            eventId: 102,
-            eventTitle: "Team Building Adventure",
-            createdAt: "2025-12-24T15:20:00Z",
-            isRead: true,
-            imageUrl: "https://picsum.photos/seed/notif-3/100/100"
+            type: "Reminder",
+            title: "Event Tomorrow!",
+            message: "Python for Beginners starts tomorrow at 10:00 AM. Don't forget your laptop!",
+            eventId: 5,
+            createdAt: "2025-12-25T09:00:00Z",
+            isRead: false
         ),
         Notification(
             id: 4,
-            type: "event_update",
-            title: "Event Update",
-            message: "Annual Company Conference location has been updated to Radisson Blu Iveria Hotel",
-            eventId: 103,
-            eventTitle: "Annual Company Conference",
-            createdAt: "2025-12-23T11:00:00Z",
-            isRead: true,
-            imageUrl: "https://picsum.photos/seed/notif-4/100/100"
+            type: "Reminder",
+            title: "Event Starts in 3 Days",
+            message: "Security Awareness training is coming up. Prepare your questions!",
+            eventId: 6,
+            createdAt: "2025-12-22T15:00:00Z",
+            isRead: true
         ),
         Notification(
             id: 5,
-            type: "new_event",
-            title: "New Event Available",
-            message: "New Year Celebration event is now open for registration!",
-            eventId: 105,
-            eventTitle: "New Year Celebration",
-            createdAt: "2025-12-22T10:00:00Z",
-            isRead: true,
-            imageUrl: "https://picsum.photos/seed/notif-5/100/100"
+            type: "Reminder",
+            title: "Event This Week",
+            message: "Summer BBQ is this Saturday! RSVP confirmed.",
+            eventId: 7,
+            createdAt: "2025-12-20T11:00:00Z",
+            isRead: true
         ),
+        
+        // Waitlist updates
         Notification(
             id: 6,
-            type: "event_cancelled",
+            type: "Waitlist",
+            title: "Moved Up on Waitlist",
+            message: "You're now #2 on the waitlist for Python for Beginners",
+            eventId: 5,
+            createdAt: "2025-12-21T16:45:00Z",
+            isRead: true
+        ),
+        Notification(
+            id: 7,
+            type: "Waitlist",
+            title: "Waitlist Confirmation",
+            message: "A spot opened up! You're confirmed for Security Awareness",
+            eventId: 6,
+            createdAt: "2025-12-19T13:20:00Z",
+            isRead: true
+        ),
+        
+        // Event updates
+        Notification(
+            id: 8,
+            type: "Update",
+            title: "Location Changed",
+            message: "Python for Beginners has moved to Lab 3 (previously Lab 2)",
+            eventId: 5,
+            createdAt: "2025-12-18T10:00:00Z",
+            isRead: true
+        ),
+        Notification(
+            id: 9,
+            type: "Update",
+            title: "New Materials Available",
+            message: "Pre-event materials for Security Awareness are now available",
+            eventId: 6,
+            createdAt: "2025-12-17T14:30:00Z",
+            isRead: true
+        ),
+        Notification(
+            id: 10,
+            type: "Update",
+            title: "Speaker Announcement",
+            message: "Special guest speaker added to Summer BBQ event!",
+            eventId: 7,
+            createdAt: "2025-12-16T09:15:00Z",
+            isRead: true
+        ),
+        
+        // New events
+        Notification(
+            id: 11,
+            type: "Event",
+            title: "New Event Available",
+            message: "Summer BBQ registration is now open! Limited spots available.",
+            eventId: 7,
+            createdAt: "2025-12-15T08:00:00Z",
+            isRead: true
+        ),
+        Notification(
+            id: 12,
+            type: "Event",
+            title: "New Workshop Added",
+            message: "Check out the new Python for Beginners workshop!",
+            eventId: 5,
+            createdAt: "2025-12-14T12:00:00Z",
+            isRead: true
+        ),
+        
+        // Cancellations
+        Notification(
+            id: 13,
+            type: "Update",
             title: "Event Cancelled",
-            message: "Unfortunately, the Python Workshop scheduled for Jan 5 has been cancelled.",
+            message: "iOS Advanced workshop scheduled for Dec 28 has been cancelled",
             eventId: nil,
-            eventTitle: nil,
-            createdAt: "2025-12-20T08:30:00Z",
-            isRead: true,
-            imageUrl: "https://picsum.photos/seed/notif-6/100/100"
+            createdAt: "2025-12-13T10:30:00Z",
+            isRead: true
+        ),
+        
+        // General announcements
+        Notification(
+            id: 14,
+            type: "Update",
+            title: "Survey Request",
+            message: "Help us improve! Share feedback on your recent event experience",
+            eventId: nil,
+            createdAt: "2025-12-12T16:00:00Z",
+            isRead: true
+        ),
+        Notification(
+            id: 15,
+            type: "Update",
+            title: "Policy Update",
+            message: "New cancellation policy: Cancel up to 24 hours before events",
+            eventId: nil,
+            createdAt: "2025-12-11T11:00:00Z",
+            isRead: true
         )
     ]
+
+    // MARK: - Generate Mock Agenda
+    static func generateAgenda(for eventId: Int) -> [AgendaItem]? {
+        // Generate random agenda based on event ID
+        let agendaTemplates: [[AgendaItem]] = [
+            // Template 1: Workshop style
+            [
+                AgendaItem(id: "1", time: "10:00 AM", title: "Welcome & Introduction", description: "Event overview and objectives", duration: "30 min"),
+                AgendaItem(id: "2", time: "10:30 AM", title: "Main Session", description: "Deep dive into the topic", duration: "90 min"),
+                AgendaItem(id: "3", time: "12:00 PM", title: "Lunch Break", description: "Networking lunch", duration: "60 min"),
+                AgendaItem(id: "4", time: "1:00 PM", title: "Hands-on Practice", description: "Interactive exercises", duration: "90 min"),
+                AgendaItem(id: "5", time: "2:30 PM", title: "Q&A and Wrap-up", description: "Questions and closing remarks", duration: "30 min")
+            ],
+            // Template 2: Conference style
+            [
+                AgendaItem(id: "1", time: "9:00 AM", title: "Registration & Coffee", description: "Check-in and networking", duration: "60 min"),
+                AgendaItem(id: "2", time: "10:00 AM", title: "Opening Keynote", description: "Vision and strategy", duration: "60 min"),
+                AgendaItem(id: "3", time: "11:00 AM", title: "Panel Discussion", description: "Expert insights", duration: "90 min"),
+                AgendaItem(id: "4", time: "12:30 PM", title: "Lunch", description: "Networking lunch", duration: "90 min"),
+                AgendaItem(id: "5", time: "2:00 PM", title: "Breakout Sessions", description: "Choose your track", duration: "90 min"),
+                AgendaItem(id: "6", time: "3:30 PM", title: "Closing Remarks", description: "Summary and next steps", duration: "30 min")
+            ],
+            // Template 3: Training style
+            [
+                AgendaItem(id: "1", time: "9:30 AM", title: "Introduction", description: "Course overview", duration: "30 min"),
+                AgendaItem(id: "2", time: "10:00 AM", title: "Module 1", description: "Fundamentals", duration: "90 min"),
+                AgendaItem(id: "3", time: "11:30 AM", title: "Module 2", description: "Advanced concepts", duration: "90 min"),
+                AgendaItem(id: "4", time: "1:00 PM", title: "Practical Lab", description: "Apply what you learned", duration: "2 hours")
+            ],
+            // Template 4: Social event style
+            [
+                AgendaItem(id: "1", time: "6:00 PM", title: "Welcome Reception", description: "Drinks and appetizers", duration: "60 min"),
+                AgendaItem(id: "2", time: "7:00 PM", title: "Dinner", description: "Main course", duration: "90 min"),
+                AgendaItem(id: "3", time: "8:30 PM", title: "Entertainment", description: "Live music and activities", duration: "2 hours")
+            ]
+        ]
+        
+        // Use event ID to consistently pick the same template for the same event
+        let templateIndex = eventId % agendaTemplates.count
+        return agendaTemplates[templateIndex]
+    }
+
+    // MARK: - Generate Mock Speakers
+    static func generateSpeakers(for eventId: Int) -> [Speaker]? {
+        // Pool of speakers
+        let allSpeakers = [
+            Speaker(id: "1", name: "Sarah Johnson", title: "Senior Developer", bio: "15+ years of industry experience", imageUrl: "https://i.pravatar.cc/300?img=45", company: "TBC Tech"),
+            Speaker(id: "2", name: "Michael Chen", title: "Data Science Lead", bio: "Expert in AI and machine learning", imageUrl: "https://i.pravatar.cc/300?img=12", company: "TBC AI Labs"),
+            Speaker(id: "3", name: "Alex Martinez", title: "Chief Security Officer", bio: "Cybersecurity expert", imageUrl: "https://i.pravatar.cc/300?img=33", company: "TBC Security"),
+            Speaker(id: "4", name: "Emily Davis", title: "Product Manager", bio: "10+ years building products", imageUrl: "https://i.pravatar.cc/300?img=47", company: "TBC"),
+            Speaker(id: "5", name: "David Kim", title: "Engineering Manager", bio: "Leading high-performing teams", imageUrl: "https://i.pravatar.cc/300?img=52", company: "TBC Engineering"),
+            Speaker(id: "6", name: "Lisa Anderson", title: "UX Designer", bio: "Award-winning designer", imageUrl: "https://i.pravatar.cc/300?img=38", company: "TBC Design"),
+            Speaker(id: "7", name: "James Wilson", title: "DevOps Lead", bio: "Infrastructure and automation expert", imageUrl: "https://i.pravatar.cc/300?img=15", company: "TBC Cloud"),
+            Speaker(id: "8", name: "Maria Garcia", title: "Business Analyst", bio: "Data-driven decision making", imageUrl: "https://i.pravatar.cc/300?img=29", company: "TBC Analytics")
+        ]
+        
+        // Use event ID to consistently pick 1-3 speakers for the same event
+        let speakerCount = (eventId % 3) + 1 // 1, 2, or 3 speakers
+        let startIndex = eventId % allSpeakers.count
+        
+        var selectedSpeakers: [Speaker] = []
+        for i in 0..<speakerCount {
+            let index = (startIndex + i) % allSpeakers.count
+            selectedSpeakers.append(allSpeakers[index])
+        }
+        
+        return selectedSpeakers.isEmpty ? nil : selectedSpeakers
+    }
 }

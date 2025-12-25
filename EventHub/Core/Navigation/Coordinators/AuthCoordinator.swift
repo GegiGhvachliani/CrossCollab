@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 @MainActor
-class AuthCoordinator: ObservableObject {
+final class AuthCoordinator: ObservableObject {
     
     @Published var path = NavigationPath()
     

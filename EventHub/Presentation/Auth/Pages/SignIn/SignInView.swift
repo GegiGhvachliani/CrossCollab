@@ -32,10 +32,12 @@ struct SignInView: View {
             )
             
             if let errorMessage = viewModel.errorMessage {
-                Text(errorMessage)
+                Text(viewModel.errorMessage ?? " ")
                     .foregroundStyle(.red)
-                    .font(.system(size: 14))
-                    .padding(.horizontal)
+                    .font(.system(size: 13))
+                    .padding(.horizontal, 30)
+                    .frame(height: 40)
+                    .multilineTextAlignment(.center)
             } else {
                 Text("")
                     .font(.system(size: 14))

@@ -1,4 +1,13 @@
-// MARK: - List Mode
+//
+//  ListModeView.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 24.12.25.
+//
+
+import SwiftUI
+
+
 struct ListModeView: View {
     @ObservedObject var viewModel: MyEventsViewModel
     
@@ -10,11 +19,11 @@ struct ListModeView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
-                ForEach(viewModel.allMyEvents) { event in
+                ForEach(viewModel.allMyEvents) { registration in  // CHANGED
                     NavigationLink {
-                        EventDetailsView(eventId: event.id)
+                        EventDetailsView(eventId: registration.eventId)
                     } label: {
-                        EventCardView(event: event)
+                        RegistrationCard(registration: registration)  // NEW card
                     }
                     .buttonStyle(.plain)
                 }
@@ -25,78 +34,56 @@ struct ListModeView: View {
     }
 }
 
-// MARK: - Calendar Mode
-struct CalendarModeView: View {
-    @ObservedObject var viewModel: MyEventsViewModel
+// MARK: - Registration Card (for list view)
+struct RegistrationCard: View {
+    let registration: Registration
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                
-                // Upcoming Event
-                if let upcomingEvent = viewModel.upcomingEvent {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Upcoming Event")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        NextEventCard(event: upcomingEvent)
-                    }
-                    
-                    Divider()
-                        .padding(.horizontal)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text(registration.eventTitle)
+                    .font(.headline)
+                Spacer()
+                HStack {
+                    Image(systemName: registration.isConfirmed ? "checkmark.circle.fill" : "clock.fill")
+                    Text(registration.status)
                 }
-                
-                // Calendar
-                CalendarPicker(selectedDate: $viewModel.selectedDate)
-                    .padding(.horizontal)
-                
-                Divider()
-                    .padding(.horizontal)
-                
-                // Events for Selected Date
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Events on \(formattedDate(viewModel.selectedDate))")
-                        .font(.headline)
-                        .padding(.horizontal)
-                    
-                    if viewModel.eventsForSelectedDate.isEmpty {
-                        Text("No events on this day")
-                            .foregroundColor(.secondary)
-                            .padding(.horizontal)
-                            .padding(.top, 8)
-                    } else {
-                        ForEach(viewModel.eventsForSelectedDate) { event in
-                            NavigationLink {
-                                EventDetailsView(eventId: event.id)
-                            } label: {
-                                EventDetailCard(event: event)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
+                .font(.caption)
+                .foregroundColor(registration.isConfirmed ? .green : .orange)
             }
-            .padding(.vertical)
+            
+            Text(registration.eventType)
+                .font(.subheadline)
+                .foregroundColor(.blue)
+            
+            HStack {
+                Image(systemName: "calendar")
+                Text(formatDate(registration.startDateTime))
+            }
+            .font(.caption)
+            .foregroundColor(.gray)
+            
+            HStack {
+                Image(systemName: "mappin.and.ellipse")
+                Text(registration.location)
+            }
+            .font(.caption)
+            .foregroundColor(.gray)
         }
-        .background(Color(.systemGray6))
+        .padding()
+        .background(Color.white)
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(0.05), radius: 4)
+        .padding(.horizontal)
     }
     
-    private func formattedDate(_ date: Date) -> String {
-        date.formatted(date: .abbreviated, time: .omitted)
+    private func formatDate(_ dateString: String) -> String {
+        let formatter = ISO8601DateFormatter()
+        if let date = formatter.date(from: dateString) {
+            return date.formatted(date: .abbreviated, time: .shortened)
+        }
+        return dateString
     }
 }
 
-// MARK: - Calendar Picker
-struct CalendarPicker: View {
-    @Binding var selectedDate: Date
-    
-    var body: some View {
-        DatePicker(
-            "",
-            selection: $selectedDate,
-            displayedComponents: [.date]
-        )
-        .datePickerStyle(.graphical)
-    }
-}
+

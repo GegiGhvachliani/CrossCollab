@@ -1,5 +1,13 @@
+//
+//  FiltersSheet.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
 
-// MARK: - Filters Sheet
+import SwiftUI
+
+
 struct FiltersSheet: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: BrowseViewModel

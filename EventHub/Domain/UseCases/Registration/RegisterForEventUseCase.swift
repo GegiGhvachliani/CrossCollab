@@ -5,14 +5,6 @@
 //  Created by Gegi Ghvachliani on 24.12.25.
 //
 
-
-//
-//  RegisterForEventUseCase.swift
-//  EventHub
-//
-//  Created by Gegi Ghvachliani on 23.12.25.
-//
-
 import Foundation
 
 class RegisterForEventUseCase {
@@ -23,7 +15,7 @@ class RegisterForEventUseCase {
         self.repository = repository
     }
     
-    func execute(eventId: Int, userId: Int) async throws -> Registration {
-        return try await repository.registerForEvent(eventId: eventId, userId: userId)
+    func execute(eventId: Int) async throws -> Registration {
+        return try await repository.registerForEvent(eventId: eventId)
     }
 }

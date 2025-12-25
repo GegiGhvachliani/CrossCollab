@@ -1,4 +1,13 @@
-// MARK: - Empty My Events View
+//
+//  EmptyMyEventsView.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 24.12.25.
+//
+
+import SwiftUI
+
+
 struct EmptyMyEventsView: View {
     var body: some View {
         VStack(spacing: 16) {

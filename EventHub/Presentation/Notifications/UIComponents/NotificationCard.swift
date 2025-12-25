@@ -1,10 +1,19 @@
-// MARK: - Notification Card
+//
+//  NotificationCard.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 24.12.25.
+//
+
+import SwiftUI
+
 struct NotificationCard: View {
     let notification: Notification
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             
+            // Icon (NOT avatar)
             Image(systemName: iconName)
                 .font(.title3)
                 .foregroundColor(.blue)
@@ -52,4 +61,3 @@ struct NotificationCard: View {
         return "bell"
     }
 }
-

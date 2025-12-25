@@ -13,27 +13,19 @@ struct TrendingEventCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
-            if let imageUrl = event.imageUrl, let url = URL(string: imageUrl) {
-                AsyncImage(url: url) { image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .cornerRadius(12)
-                } placeholder: {
-                    placeholderImage
-                }
-                .frame(width: 170, height: 100)
-                .clipped()
-                .cornerRadius(12)
-                .padding(.top, 5)
-                .padding(.horizontal, 5)
-            } else {
-                placeholderImage
-                    .frame(width: 170, height: 100)
-                    .clipped()
+            AsyncImage(url: URL(string: imageUrl)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .cornerRadius(12)
-                    .padding(.top, 5)
-                    .padding(.horizontal, 5)
+            } placeholder: {
+                placeholderImage
             }
+            .frame(width: 170, height: 100)
+            .clipped()
+            .cornerRadius(12)
+            .padding(.top, 5)
+            .padding(.horizontal, 5)
             
             VStack(alignment: .leading, spacing: 8) {
                 Text(event.title)
@@ -55,6 +47,12 @@ struct TrendingEventCardView: View {
         .background(Color.white)
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+    }
+    
+    // Generate consistent image URL for this event
+    private var imageUrl: String {
+        // Use backend image if available, otherwise generate
+        event.imageUrl ?? "https://picsum.photos/seed/event-\(event.id)/400/200"
     }
     
     private var placeholderImage: some View {

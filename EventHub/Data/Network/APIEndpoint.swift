@@ -25,42 +25,43 @@ enum APIEndpoint {
     case getEventDetail(id: Int)
     
     // MARK: - Registration
-    case registerForEvent(eventId: Int, userId: Int)
+    case registerForEvent(eventId: Int)
     case cancelRegistration(registrationId: Int)
-    case getUserRegistrations(userId: Int)
+    case getMyRegistrations
+    case getEventRegistrations(eventId: Int)  // NEW: Check if user registered for specific event
     
     // MARK: - Notifications
     case getNotifications
 }
 
-// MARK: - Endpoint Configuration
 extension APIEndpoint {
     
     var baseURL: String {
-        return "https://api.company.com"
+        return "http://35.205.47.8"
     }
     
     var path: String {
         switch self {
-
         case .login:
-            return "/api/auth/login"
+            return "/api/Auth/login"
         case .register:
-            return "/api/auth/register"
+            return "/api/Auth/register"
         case .forgotPassword:
-            return "/api/auth/forgot-password"
+            return "/api/Auth/forgot-password"
             
         case .getEvents:
-            return "/api/events"
+            return "/api/Events"
         case .getEventDetail(let id):
-            return "/api/events/\(id)"
+            return "/api/Events/\(id)"
             
         case .registerForEvent:
-            return "/api/registrations"
+            return "/api/Registrations"
         case .cancelRegistration(let registrationId):
-            return "/api/registrations/\(registrationId)"
-        case .getUserRegistrations(let userId):
-            return "/api/registrations/user/\(userId)"
+            return "/api/Registrations/\(registrationId)"
+        case .getMyRegistrations:
+            return "/api/Registrations/my"
+        case .getEventRegistrations(let eventId):  // NEW
+            return "/api/Registrations/event/\(eventId)"
             
         case .getNotifications:
             return "/api/notifications"
@@ -72,7 +73,7 @@ extension APIEndpoint {
         case .login, .register, .forgotPassword, .registerForEvent:
             return .post
             
-        case .getEvents, .getEventDetail, .getUserRegistrations, .getNotifications:
+        case .getEvents, .getEventDetail, .getMyRegistrations, .getNotifications, .getEventRegistrations:  // UPDATED
             return .get
             
         case .cancelRegistration:
@@ -131,10 +132,9 @@ extension APIEndpoint {
                 "email": email
             ]
             
-        case .registerForEvent(let eventId, let userId):
+        case .registerForEvent(let eventId):
             return [
-                "eventId": eventId,
-                "userId": userId
+                "eventId": eventId
             ]
             
         default:

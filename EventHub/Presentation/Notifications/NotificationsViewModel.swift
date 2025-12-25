@@ -2,23 +2,21 @@
 //  NotificationsViewModel.swift
 //  EventHub
 //
-//  Created by Gegi Ghvachliani on 23.12.25.
+//  Created by Gegi Ghvachliani on 24.12.25.
 //
 
 import SwiftUI
 import Combine
 
 @MainActor
-class NotificationsViewModel: ObservableObject {
+final class NotificationsViewModel: ObservableObject {
     
-    // MARK: - Published Properties
     @Published var notifications: [Notification] = []
     @Published var selectedType: NotificationType = .all
     @Published var selectedNotification: Notification?
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    // MARK: - Computed Properties
     var filteredNotifications: [Notification] {
         if selectedType == .all {
             return notifications
@@ -34,44 +32,56 @@ class NotificationsViewModel: ObservableObject {
         filteredNotifications.filter { !$0.isNew }
     }
     
-    // MARK: - Dependencies
     private let getNotificationsUseCase: GetNotificationsUseCase
     
     init(getNotificationsUseCase: GetNotificationsUseCase) {
         self.getNotificationsUseCase = getNotificationsUseCase
     }
     
-    // MARK: - Load Notifications
     func loadNotifications() {
         isLoading = true
         errorMessage = nil
         
         Task {
             do {
-                let fetchedNotifications = try await getNotificationsUseCase.execute()
-                self.notifications = fetchedNotifications
+                // Simulate loading
+                try await Task.sleep(nanoseconds: 500_000_000)
+                self.notifications = MockData.notifications
                 self.isLoading = false
-                
-            } catch let error as NetworkError {
-                self.isLoading = false
-                self.errorMessage = error.message
-                
+                print("✅ Loaded \(MockData.notifications.count) mock notifications")
             } catch {
                 self.isLoading = false
-                self.errorMessage = "Failed to load notifications"
+                print("⚠️ Load cancelled")
             }
         }
     }
     
-    // MARK: - Refresh Notifications
     func refreshNotifications() async {
-        errorMessage = nil
-        
         do {
-            let fetchedNotifications = try await getNotificationsUseCase.execute()
-            self.notifications = fetchedNotifications
+            // Simulate refresh
+            try await Task.sleep(nanoseconds: 300_000_000)
+            self.notifications = MockData.notifications
+            print("✅ Refreshed mock notifications")
         } catch {
-            self.errorMessage = "Failed to refresh notifications"
+            print("⚠️ Refresh cancelled")
         }
+    }
+    
+    func markAsRead(notificationId: Int) {
+        if let index = notifications.firstIndex(where: { $0.id == notificationId }) {
+            notifications[index] = Notification(
+                id: notifications[index].id,
+                type: notifications[index].type,
+                title: notifications[index].title,
+                message: notifications[index].message,
+                eventId: notifications[index].eventId,
+                createdAt: notifications[index].createdAt,
+                isRead: true
+            )
+        }
+    }
+    
+    func deleteNotification(notificationId: Int) {
+        notifications.removeAll { $0.id == notificationId }
     }
 }

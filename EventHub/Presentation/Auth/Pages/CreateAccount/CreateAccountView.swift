@@ -25,35 +25,41 @@ struct CreateAccountView: View {
                     lastName: $viewModel.lastName,
                     email: $viewModel.email,
                     phoneNumber: $viewModel.phoneNumber,
-                    onSendOTP: {
-                        viewModel.sendOTP()
-                    }
+                    firstNameError: viewModel.firstNameError,
+                    lastNameError: viewModel.lastNameError,
+                    emailError: viewModel.emailError,
+                    phoneError: viewModel.phoneError,
+                    onFirstNameChange: { viewModel.validateFirstName() },
+                    onLastNameChange: { viewModel.validateLastName() },
+                    onEmailChange: { viewModel.validateEmail() },
+                    onPhoneChange: { viewModel.validatePhoneNumber() },
+                    onSendOTP: { viewModel.sendOTP() }
                 )
                 
                 OTPSectionView(
                     otpCode: $viewModel.otpCode,
                     otpTimer: viewModel.otpTimer,
                     canResendOTP: viewModel.canResendOTP,
-                    onResend: {
-                        viewModel.resendOTP()
-                    }
+                    otpError: viewModel.otpError,
+                    onOTPChange: { viewModel.validateOTP() },
+                    onResend: { viewModel.resendOTP() }
                 )
                 
                 DepartmentSelectionView(
                     departments: viewModel.departments,
                     selectedDepartment: viewModel.selectedDepartment,
                     isExpanded: $viewModel.isDepartmentExpanded,
-                    onToggle: {
-                        viewModel.toggleDepartmentPicker()
-                    },
-                    onSelect: { department in
-                        viewModel.selectDepartment(department)
-                    }
+                    onToggle: { viewModel.toggleDepartmentPicker() },
+                    onSelect: { department in viewModel.selectDepartment(department) }
                 )
                 
                 PasswordView(
                     password: $viewModel.password,
-                    confirmPassword: $viewModel.confirmPassword
+                    confirmPassword: $viewModel.confirmPassword,
+                    passwordError: viewModel.passwordError,
+                    confirmPasswordError: viewModel.confirmPasswordError,
+                    onPasswordChange: { viewModel.validatePassword() },
+                    onConfirmPasswordChange: { viewModel.validateConfirmPassword() }
                 )
                 
                 AgreementCheckmark(
@@ -90,87 +96,139 @@ struct CreateAccountView: View {
         .environmentObject(AuthCoordinator())
 }
 
+// MARK: - First Name, Last Name, Email, Phone Number View
 struct FirstNameLastNameEmailPhoneNumberView: View {
     @Binding var firstName: String
     @Binding var lastName: String
     @Binding var email: String
     @Binding var phoneNumber: String
     
+    let firstNameError: String?
+    let lastNameError: String?
+    let emailError: String?
+    let phoneError: String?
+    
+    let onFirstNameChange: () -> Void
+    let onLastNameChange: () -> Void
+    let onEmailChange: () -> Void
+    let onPhoneChange: () -> Void
     let onSendOTP: () -> Void
     
     var body: some View {
-        VStack(spacing: 15) {
-            HStack(spacing: 15) {
-                CustomTextField(
-                    text: $firstName,
-                    title: "First Name",
-                    placeHolder: "John"
-                )
+        VStack(spacing: 12) {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 3) {
+                    CustomTextField(
+                        text: $firstName,
+                        title: "First Name",
+                        placeHolder: "John"
+                    )
+                    .onChange(of: firstName) { _ in onFirstNameChange() }
+                    
+                    Text(firstNameError ?? " ")
+                        .font(.system(size: 11))
+                        .foregroundColor(.red)
+                        .frame(height: 14)
+                }
                 
-                CustomTextField(
-                    text: $lastName,
-                    title: "Last Name",
-                    placeHolder: "Doe"
-                )
+                VStack(alignment: .leading, spacing: 3) {
+                    CustomTextField(
+                        text: $lastName,
+                        title: "Last Name",
+                        placeHolder: "Doe"
+                    )
+                    .onChange(of: lastName) { _ in onLastNameChange() }
+                    
+                    Text(lastNameError ?? " ")
+                        .font(.system(size: 11))
+                        .foregroundColor(.red)
+                        .frame(height: 14)
+                }
             }
             
-            CustomTextField(
-                text: $email,
-                title: "Email",
-                placeHolder: "john.doe@company.com"
-            )
-            
-            HStack(spacing: 10) {
+            VStack(alignment: .leading, spacing: 3) {
                 CustomTextField(
-                    text: $phoneNumber,
-                    title: "Phone Number",
-                    placeHolder: "+1 (000) 000-000"
+                    text: $email,
+                    title: "Email",
+                    placeHolder: "john.doe@company.com"
                 )
+                .onChange(of: email) { _ in onEmailChange() }
                 
-                Button {
-                    onSendOTP()
-                } label: {
-                    Text("Send OTP")
-                        .foregroundStyle(.black)
-                        .font(.system(size: 14))
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray.opacity(0.5), lineWidth: 2)
-                        )
-                        .background(Color.secondary.opacity(0.2))
+                Text(emailError ?? " ")
+                    .font(.system(size: 11))
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(height: 14)
+            }
+            
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 10) {
+                    CustomTextField(
+                        text: $phoneNumber,
+                        title: "Phone Number",
+                        placeHolder: "+995 555 123456"
+                    )
+                    .onChange(of: phoneNumber) { _ in onPhoneChange() }
                     
-                        .cornerRadius(7)
-                        .offset(y: 13)
+                    Button {
+                        onSendOTP()
+                    } label: {
+                        Text("Send OTP")
+                            .foregroundStyle(.black)
+                            .font(.system(size: 14))
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray.opacity(0.5), lineWidth: 2)
+                            )
+                            .background(Color.secondary.opacity(0.2))
+                            .cornerRadius(7)
+                            .offset(y: 13)
+                    }
                 }
+                
+                Text(phoneError ?? " ")
+                    .font(.system(size: 11))
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(height: 14)
             }
         }
         .padding(.horizontal, 30)
     }
 }
 
+// MARK: - OTP Section View
 struct OTPSectionView: View {
     @Binding var otpCode: String
     
     let otpTimer: Int
     let canResendOTP: Bool
+    let otpError: String?
+    let onOTPChange: () -> Void
     let onResend: () -> Void
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 12) {
             HStack {
                 Image(systemName: "shield.lefthalf.filled")
-                
                 Text("Enter OTP Code")
-                
                 Spacer()
-                
             }
             .font(.system(size: 15))
             .padding(.horizontal, 30)
             
             OTPView(otp: $otpCode)
+                .onChange(of: otpCode) { _ in onOTPChange() }
+            
+            Text(otpError ?? " ")
+                .font(.system(size: 11))
+                .foregroundColor(.red)
+                .padding(.horizontal, 30)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(height: 14)
+            
             HStack {
                 if otpTimer > 0 {
                     Text("code expires in \(otpTimer)s")
@@ -196,6 +254,7 @@ struct OTPSectionView: View {
     }
 }
 
+// MARK: - Department Selection View
 struct DepartmentSelectionView: View {
     let departments: [Department]
     let selectedDepartment: Department?
@@ -266,37 +325,62 @@ struct DepartmentSelectionView: View {
     }
 }
 
+// MARK: - Password View
 struct PasswordView: View {
     @Binding var password: String
     @Binding var confirmPassword: String
     
+    let passwordError: String?
+    let confirmPasswordError: String?
+    let onPasswordChange: () -> Void
+    let onConfirmPasswordChange: () -> Void
+    
     var body: some View {
-        VStack(spacing: 15) {
-            VStack(spacing: 5) {
+        VStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 3) {
                 CustomPasswordTextField(
                     text: $password,
                     title: "Password",
                     placeHolder: "Create password"
                 )
+                .onChange(of: password) { _ in onPasswordChange() }
                 
-                Text("Password must be at least 8 characters with uppercase, lowercase and number.")
-                    .foregroundStyle(.black.opacity(0.6))
-                    .font(.system(size: 12))
-                    .lineLimit(2)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                if let error = passwordError {
+                    Text(error)
+                        .font(.system(size: 11))
+                        .foregroundColor(.red)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 28)
+                } else {
+                    Text("Min 8 chars with uppercase, lowercase, number")
+                        .foregroundStyle(.black.opacity(0.6))
+                        .font(.system(size: 11))
+                        .lineLimit(2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 28)
+                }
             }
             
-            CustomPasswordTextField(  // CHANGED: Use secure field
-                text: $confirmPassword,
-                title: "Confirm Password",
-                placeHolder: "Confirm password"
-            )
+            VStack(alignment: .leading, spacing: 3) {
+                CustomPasswordTextField(
+                    text: $confirmPassword,
+                    title: "Confirm Password",
+                    placeHolder: "Confirm password"
+                )
+                .onChange(of: confirmPassword) { _ in onConfirmPasswordChange() }
+                
+                Text(confirmPasswordError ?? " ")
+                    .font(.system(size: 11))
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(height: 14)
+            }
         }
         .padding(.horizontal, 30)
     }
 }
 
+// MARK: - Agreement Checkmark
 struct AgreementCheckmark: View {
     @Binding var isAgreementMarked: Bool
     
@@ -321,6 +405,7 @@ struct AgreementCheckmark: View {
     }
 }
 
+// MARK: - Create Account Button View
 struct CreateAccountButtonView: View {
     let isLoading: Bool
     let onCreate: () -> Void
@@ -328,12 +413,12 @@ struct CreateAccountButtonView: View {
     
     var body: some View {
         VStack(spacing: 15) {
-           CustomButton(
-            title: "Create Account",
-            action: onCreate,
-            isLoading: isLoading
-           )
-
+            CustomButton(
+                title: "Create Account",
+                action: onCreate,
+                isLoading: isLoading
+            )
+            
             HStack {
                 Text("Already have an account?")
                     .font(.system(size: 15))

@@ -1,4 +1,13 @@
-// MARK: - Category Bar
+//
+//  CategoryBar.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
+
+import SwiftUI
+
+
 struct CategoryBar: View {
     let categories: [String]
     @Binding var selectedCategory: String

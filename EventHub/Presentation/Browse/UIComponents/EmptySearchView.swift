@@ -1,3 +1,12 @@
+//
+//  EmptySearchView.swift
+//  EventHub
+//
+//  Created by Gegi Ghvachliani on 23.12.25.
+//
+
+import SwiftUI
+
 
 // MARK: - Empty Search View
 struct EmptySearchView: View {

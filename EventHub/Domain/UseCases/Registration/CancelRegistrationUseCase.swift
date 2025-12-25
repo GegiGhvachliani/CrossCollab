@@ -2,12 +2,13 @@
 //  CancelRegistrationUseCase.swift
 //  EventHub
 //
-//  Created by Gegi Ghvachliani on 23.12.25.
+//  Created by Gegi Ghvachliani on 24.12.25.
 //
+
 
 import Foundation
 
-class CancelRegistrationUseCase {
+final class CancelRegistrationUseCase {
     
     private let repository: RegistrationRepositoryProtocol
     
