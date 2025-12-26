@@ -14,7 +14,6 @@ struct NotificationsView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 
-                // Type Filter Picker
                 Picker("", selection: $viewModel.selectedType) {
                     ForEach(NotificationType.allCases, id: \.self) { type in
                         Text(type.rawValue).tag(type)
@@ -23,7 +22,6 @@ struct NotificationsView: View {
                 .pickerStyle(.segmented)
                 .padding()
                 
-                // Content
                 if viewModel.isLoading {
                     ProgressView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)

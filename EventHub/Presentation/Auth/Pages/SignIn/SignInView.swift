@@ -45,7 +45,7 @@ struct SignInView: View {
         }
         .onAppear {
             viewModel.loadRememberMe()
-             viewModel.testNetworkLayer()
+            viewModel.testNetworkLayer()
         }
     }
 }

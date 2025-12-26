@@ -10,7 +10,7 @@ import MapKit
 
 
 struct NextEventCard: View {
-    let registration: Registration  // CHANGED
+    let registration: Registration
     @State private var showingMapAlert = false
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 41.7151, longitude: 44.8271),
@@ -19,7 +19,7 @@ struct NextEventCard: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            Text(registration.eventTitle)  // CHANGED
+            Text(registration.eventTitle)
                 .font(.headline)
             
             Label(formatDateTime(registration.startDateTime), systemImage: "calendar")
@@ -30,7 +30,6 @@ struct NextEventCard: View {
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             
-            // Status badge
             HStack {
                 Image(systemName: registration.isConfirmed ? "checkmark.circle.fill" : "clock.fill")
                 Text(registration.status)
@@ -42,7 +41,6 @@ struct NextEventCard: View {
             .background(registration.isConfirmed ? Color.green.opacity(0.1) : Color.orange.opacity(0.1))
             .cornerRadius(8)
             
-            // Map
             ZStack {
                 Map(coordinateRegion: $region, interactionModes: [])
                     .frame(height: 160)

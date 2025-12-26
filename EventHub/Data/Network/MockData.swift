@@ -134,9 +134,7 @@ struct MockData {
     ]
     
     // MARK: - Mock Notifications
-    // MARK: - Mock Notifications
     static let notifications: [Notification] = [
-        // Registration confirmations
         Notification(
             id: 1,
             type: "Registration",
@@ -156,7 +154,6 @@ struct MockData {
             isRead: false
         ),
         
-        // Event reminders
         Notification(
             id: 3,
             type: "Reminder",
@@ -185,7 +182,6 @@ struct MockData {
             isRead: true
         ),
         
-        // Waitlist updates
         Notification(
             id: 6,
             type: "Waitlist",
@@ -205,7 +201,6 @@ struct MockData {
             isRead: true
         ),
         
-        // Event updates
         Notification(
             id: 8,
             type: "Update",
@@ -234,7 +229,6 @@ struct MockData {
             isRead: true
         ),
         
-        // New events
         Notification(
             id: 11,
             type: "Event",
@@ -254,7 +248,6 @@ struct MockData {
             isRead: true
         ),
         
-        // Cancellations
         Notification(
             id: 13,
             type: "Update",
@@ -265,7 +258,6 @@ struct MockData {
             isRead: true
         ),
         
-        // General announcements
         Notification(
             id: 14,
             type: "Update",
@@ -288,9 +280,7 @@ struct MockData {
 
     // MARK: - Generate Mock Agenda
     static func generateAgenda(for eventId: Int) -> [AgendaItem]? {
-        // Generate random agenda based on event ID
         let agendaTemplates: [[AgendaItem]] = [
-            // Template 1: Workshop style
             [
                 AgendaItem(id: "1", time: "10:00 AM", title: "Welcome & Introduction", description: "Event overview and objectives", duration: "30 min"),
                 AgendaItem(id: "2", time: "10:30 AM", title: "Main Session", description: "Deep dive into the topic", duration: "90 min"),
@@ -298,7 +288,6 @@ struct MockData {
                 AgendaItem(id: "4", time: "1:00 PM", title: "Hands-on Practice", description: "Interactive exercises", duration: "90 min"),
                 AgendaItem(id: "5", time: "2:30 PM", title: "Q&A and Wrap-up", description: "Questions and closing remarks", duration: "30 min")
             ],
-            // Template 2: Conference style
             [
                 AgendaItem(id: "1", time: "9:00 AM", title: "Registration & Coffee", description: "Check-in and networking", duration: "60 min"),
                 AgendaItem(id: "2", time: "10:00 AM", title: "Opening Keynote", description: "Vision and strategy", duration: "60 min"),
@@ -307,14 +296,12 @@ struct MockData {
                 AgendaItem(id: "5", time: "2:00 PM", title: "Breakout Sessions", description: "Choose your track", duration: "90 min"),
                 AgendaItem(id: "6", time: "3:30 PM", title: "Closing Remarks", description: "Summary and next steps", duration: "30 min")
             ],
-            // Template 3: Training style
             [
                 AgendaItem(id: "1", time: "9:30 AM", title: "Introduction", description: "Course overview", duration: "30 min"),
                 AgendaItem(id: "2", time: "10:00 AM", title: "Module 1", description: "Fundamentals", duration: "90 min"),
                 AgendaItem(id: "3", time: "11:30 AM", title: "Module 2", description: "Advanced concepts", duration: "90 min"),
                 AgendaItem(id: "4", time: "1:00 PM", title: "Practical Lab", description: "Apply what you learned", duration: "2 hours")
             ],
-            // Template 4: Social event style
             [
                 AgendaItem(id: "1", time: "6:00 PM", title: "Welcome Reception", description: "Drinks and appetizers", duration: "60 min"),
                 AgendaItem(id: "2", time: "7:00 PM", title: "Dinner", description: "Main course", duration: "90 min"),
@@ -322,14 +309,12 @@ struct MockData {
             ]
         ]
         
-        // Use event ID to consistently pick the same template for the same event
         let templateIndex = eventId % agendaTemplates.count
         return agendaTemplates[templateIndex]
     }
 
     // MARK: - Generate Mock Speakers
     static func generateSpeakers(for eventId: Int) -> [Speaker]? {
-        // Pool of speakers
         let allSpeakers = [
             Speaker(id: "1", name: "Sarah Johnson", title: "Senior Developer", bio: "15+ years of industry experience", imageUrl: "https://i.pravatar.cc/300?img=45", company: "TBC Tech"),
             Speaker(id: "2", name: "Michael Chen", title: "Data Science Lead", bio: "Expert in AI and machine learning", imageUrl: "https://i.pravatar.cc/300?img=12", company: "TBC AI Labs"),
@@ -341,8 +326,7 @@ struct MockData {
             Speaker(id: "8", name: "Maria Garcia", title: "Business Analyst", bio: "Data-driven decision making", imageUrl: "https://i.pravatar.cc/300?img=29", company: "TBC Analytics")
         ]
         
-        // Use event ID to consistently pick 1-3 speakers for the same event
-        let speakerCount = (eventId % 3) + 1 // 1, 2, or 3 speakers
+        let speakerCount = (eventId % 3) + 1 
         let startIndex = eventId % allSpeakers.count
         
         var selectedSpeakers: [Speaker] = []

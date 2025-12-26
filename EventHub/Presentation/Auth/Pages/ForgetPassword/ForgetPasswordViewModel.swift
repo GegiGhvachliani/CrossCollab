@@ -43,17 +43,9 @@ final class ForgotPasswordViewModel: ObservableObject {
         Task {
             try? await Task.sleep(nanoseconds: 2_000_000_000)
             
-            // Success! (in mock, always succeeds)
             isLoading = false
             successMessage = "Password reset link sent! Check your email."
-            
-            // do {
-            //     try await forgotPasswordUseCase.execute(email: email)
-            //     successMessage = "Password reset link sent! Check your email."
-            // } catch {
-            //     errorMessage = "Failed to send reset link. Please try again."
-            // }
-            // isLoading = false
+
         }
     }
 }

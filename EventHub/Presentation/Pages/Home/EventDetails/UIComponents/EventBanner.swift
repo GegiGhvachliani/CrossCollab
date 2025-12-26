@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EventBanner: View {
     let imageURL: String?
-    let eventId: Int  // NEW: Add eventId
+    let eventId: Int
     
     var body: some View {
         AsyncImage(url: URL(string: finalImageUrl)) { image in
@@ -30,7 +30,6 @@ struct EventBanner: View {
         .clipped()
     }
     
-    // Use backend image if available, otherwise generate
     private var finalImageUrl: String {
         imageURL ?? "https://picsum.photos/seed/event-\(eventId)/800/400"
     }

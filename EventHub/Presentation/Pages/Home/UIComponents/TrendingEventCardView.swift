@@ -49,9 +49,7 @@ struct TrendingEventCardView: View {
         .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
     
-    // Generate consistent image URL for this event
     private var imageUrl: String {
-        // Use backend image if available, otherwise generate
         event.imageUrl ?? "https://picsum.photos/seed/event-\(event.id)/400/200"
     }
     

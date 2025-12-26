@@ -37,7 +37,6 @@ class RegistrationRepository: RegistrationRepositoryProtocol {
         return registrations
     }
     
-    // NEW: Check if user is registered for a specific event
     func getUserRegistrationForEvent(eventId: Int) async throws -> Registration? {
         let allRegistrations = try await getMyRegistrations()
         return allRegistrations.first { $0.eventId == eventId && !$0.isCancelled }

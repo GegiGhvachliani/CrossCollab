@@ -30,7 +30,6 @@ struct NotificationDetailSheet: View {
                 
                 Divider()
                 
-                // Actions
                 if let eventId = notification.eventId {
                     NavigationLink {
                         EventDetailsView(eventId: eventId)

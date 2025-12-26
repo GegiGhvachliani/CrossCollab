@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct EventDetailCard: View {
-    let registration: Registration  // CHANGED
+    let registration: Registration
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -38,7 +38,6 @@ struct EventDetailCard: View {
                 .font(.caption)
                 .foregroundColor(.gray)
                 
-                // Status
                 HStack {
                     Image(systemName: registration.isConfirmed ? "checkmark.circle.fill" : "clock.fill")
                     Text(registration.status)

@@ -43,7 +43,6 @@ struct NotificationsList: View {
                     }
                 }
                 
-                // Earlier notifications
                 if !viewModel.earlierNotifications.isEmpty {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Earlier")

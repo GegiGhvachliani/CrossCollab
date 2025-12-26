@@ -15,28 +15,25 @@ struct CalendarModeView: View {
         ScrollView {
             VStack(spacing: 24) {
                 
-                // Upcoming Event
                 if let upcomingEvent = viewModel.upcomingEvent {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Upcoming Event")
                             .font(.headline)
                             .padding(.horizontal)
                         
-                        NextEventCard(registration: upcomingEvent)  // CHANGED
+                        NextEventCard(registration: upcomingEvent)
                     }
                     
                     Divider()
                         .padding(.horizontal)
                 }
                 
-                // Calendar
                 CalendarPicker(selectedDate: $viewModel.selectedDate)
                     .padding(.horizontal)
                 
                 Divider()
                     .padding(.horizontal)
                 
-                // Events for Selected Date
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Events on \(formattedDate(viewModel.selectedDate))")
                         .font(.headline)
@@ -48,11 +45,11 @@ struct CalendarModeView: View {
                             .padding(.horizontal)
                             .padding(.top, 8)
                     } else {
-                        ForEach(viewModel.eventsForSelectedDate) { registration in  // CHANGED
+                        ForEach(viewModel.eventsForSelectedDate) { registration in
                             NavigationLink {
                                 EventDetailsView(eventId: registration.eventId)
                             } label: {
-                                EventDetailCard(registration: registration)  // CHANGED
+                                EventDetailCard(registration: registration)
                             }
                             .buttonStyle(.plain)
                         }

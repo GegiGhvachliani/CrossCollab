@@ -104,7 +104,7 @@ final class DIContainer {
             getEventDetailUseCase: makeGetEventDetailUseCase(),
             registerForEventUseCase: makeRegisterForEventUseCase(),
             cancelRegistrationUseCase: makeCancelRegistrationUseCase(),
-            checkRegistrationStatusUseCase: makeCheckRegistrationStatusUseCase()  // NEW
+            checkRegistrationStatusUseCase: makeCheckRegistrationStatusUseCase()  
         )
     }
     

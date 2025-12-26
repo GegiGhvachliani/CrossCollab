@@ -13,7 +13,6 @@ struct BrowseView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 
-                // FIXED: Non-scrollable header section
                 VStack(spacing: 0) {
                     BrowseHeader()
                     
@@ -30,7 +29,6 @@ struct BrowseView: View {
                     Divider()
                 }
                 
-                // FIXED: Only this part scrolls/changes
                 ZStack {
                     if viewModel.isLoading {
                         ProgressView()

@@ -28,7 +28,7 @@ enum APIEndpoint {
     case registerForEvent(eventId: Int)
     case cancelRegistration(registrationId: Int)
     case getMyRegistrations
-    case getEventRegistrations(eventId: Int)  // NEW: Check if user registered for specific event
+    case getEventRegistrations(eventId: Int)
     
     // MARK: - Notifications
     case getNotifications
@@ -73,7 +73,7 @@ extension APIEndpoint {
         case .login, .register, .forgotPassword, .registerForEvent:
             return .post
             
-        case .getEvents, .getEventDetail, .getMyRegistrations, .getNotifications, .getEventRegistrations:  // UPDATED
+        case .getEvents, .getEventDetail, .getMyRegistrations, .getNotifications, .getEventRegistrations:
             return .get
             
         case .cancelRegistration:

@@ -12,7 +12,6 @@ struct BrowseHeader: View {
     var body: some View {
         HStack {
             Text("Browse Events")
-//                .font(.largeTitle)
                 .navigationBarTitleDisplayMode(.inline)
                 .bold()
             

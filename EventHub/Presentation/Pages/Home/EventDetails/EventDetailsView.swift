@@ -29,7 +29,7 @@ struct EventDetailsView: View {
                 
             } else if let event = viewModel.event {
                 VStack(alignment: .leading, spacing: 20) {
-                    EventBanner(imageURL: event.imageUrl, eventId: event.id)  // CHANGED: Add eventId
+                    EventBanner(imageURL: event.imageUrl, eventId: event.id)
                     EventTags(tags: event.tags ?? [])
                     EventInfoSection(event: event)
                     Divider()
@@ -42,7 +42,6 @@ struct EventDetailsView: View {
                           AgendaSection(items: agenda)
                       }
                       
-                      // NEW: Add speakers if available
                       if let speakers = viewModel.speakers, !speakers.isEmpty {
                           Divider()
                           SpeakersSection(speakers: speakers)

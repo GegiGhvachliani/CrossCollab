@@ -32,7 +32,6 @@ struct RegisterSection: View {
             .disabled(isButtonDisabled)
             .padding(.top, 8)
             
-            // Show status message if registered
             if let status = viewModel.registrationStatus {
                 HStack {
                     Image(systemName: status == "Confirmed" ? "checkmark.circle.fill" : "clock.fill")
@@ -54,19 +53,15 @@ struct RegisterSection: View {
     // MARK: - Computed Properties
     private var buttonText: String {
         if let status = viewModel.registrationStatus {
-            // Already registered - show cancel option
             return status == "Confirmed" ? "Cancel Registration" : "Leave Waitlist"
         }
-        // Not registered - show register option
         return event.isFull ? "Join Waitlist" : "Register Now"
     }
     
     private var buttonColor: Color {
         if viewModel.registrationStatus != nil {
-            // Registered - red for cancel
             return .red
         }
-        // Not registered
         return event.isFull ? .orange : .black
     }
     
@@ -76,7 +71,6 @@ struct RegisterSection: View {
     
     // MARK: - Actions
     private func handleButtonTap() {
-        // CHANGED: Use the new method from ViewModel
         viewModel.handleRegistrationAction()
     }
 }

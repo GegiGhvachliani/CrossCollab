@@ -14,7 +14,6 @@ struct MyEventsView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Segmented Picker
                 Picker("View Mode", selection: $viewModel.viewMode) {
                     ForEach(ViewMode.allCases, id: \.self) { mode in
                         Text(mode.rawValue).tag(mode)
@@ -23,7 +22,6 @@ struct MyEventsView: View {
                 .pickerStyle(.segmented)
                 .padding()
                 
-                // Content based on view mode
                 if viewModel.isLoading {
                     ProgressView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -31,12 +29,12 @@ struct MyEventsView: View {
                     VStack(spacing: 16) {
                         Text(errorMessage)
                             .foregroundColor(.red)
-                            .multilineTextAlignment(.center)  // NEW
-                            .padding()  // NEW
+                            .multilineTextAlignment(.center)
+                            .padding()
                         Button("Retry") {
                             viewModel.loadMyEvents()
                         }
-                        .buttonStyle(.borderedProminent)  // NEW
+                        .buttonStyle(.borderedProminent)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else if viewModel.registrations.isEmpty {
@@ -57,7 +55,6 @@ struct MyEventsView: View {
             }
         }
         .onAppear {
-            // Only load if we don't have data yet
             if viewModel.registrations.isEmpty && !viewModel.isLoading {  // CHANGED
                 viewModel.loadMyEvents()
             }

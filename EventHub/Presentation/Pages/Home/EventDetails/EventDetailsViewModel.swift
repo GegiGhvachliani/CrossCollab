@@ -19,7 +19,6 @@ class EventDetailViewModel: ObservableObject {
     @Published var registrationId: Int?
     @Published var isRegistering = false
     
-    // NEW: Mock data properties (not from API)
     @Published var agenda: [AgendaItem]?
     @Published var speakers: [Speaker]?
     
@@ -68,7 +67,6 @@ class EventDetailViewModel: ObservableObject {
                 let fetchedEvent = try await getEventDetailUseCase.execute(eventId: eventId)
                 self.event = fetchedEvent
                 
-                // NEW: Inject mock agenda and speakers
                 self.agenda = MockData.generateAgenda(for: eventId)
                 self.speakers = MockData.generateSpeakers(for: eventId)
                 

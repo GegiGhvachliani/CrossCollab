@@ -54,8 +54,7 @@ class MyEventsViewModel: ObservableObject {
     
     // MARK: - Load Data
     func loadMyEvents() {
-        // Don't reload if already loading
-        guard !isLoading else { return }  // NEW
+        guard !isLoading else { return }
         
         isLoading = true
         errorMessage = nil
@@ -81,16 +80,13 @@ class MyEventsViewModel: ObservableObject {
     
     // MARK: - Refresh
     func refreshMyEvents() async {
-        // CHANGED: Don't set error message during refresh
-        // Only set if actual error occurs
-        
+
         do {
             let registrations = try await getMyRegistrationsUseCase.execute()
             self.registrations = registrations
             print("✅ Refreshed \(registrations.count) registrations")
             
         } catch let error as NetworkError {
-            // Only set error if it's not a 401 (unauthorized during refresh is OK)
             if case .unauthorized = error {
                 print("⚠️ Refresh failed: Not authorized (token may have expired)")
             } else {

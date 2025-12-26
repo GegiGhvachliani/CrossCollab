@@ -13,7 +13,6 @@ struct NotificationCard: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             
-            // Icon (NOT avatar)
             Image(systemName: iconName)
                 .font(.title3)
                 .foregroundColor(.blue)

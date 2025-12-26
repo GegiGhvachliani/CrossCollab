@@ -16,7 +16,6 @@ class GetEventDetailUseCase {
     }
     
     func execute(eventId: Int) async throws -> Event {
-        // Just forward to repository
         return try await repository.getEventDetail(id: eventId)
     }
 }
